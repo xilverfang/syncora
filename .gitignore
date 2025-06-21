@@ -1,0 +1,6 @@
+.env
+log.txt
+certs/ 
+certs_backup/
+bin/
+postgres-data/

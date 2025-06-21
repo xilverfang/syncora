@@ -1,0 +1,164 @@
+{
+    "commands": {
+      "account": [
+        {
+          "name": "syncora account import",
+          "description": "Imports a private key to create or update a user account for signing transactions.",
+          "usage": "syncora account import --private-key <hex-key> [--alias <name>]",
+          "flags": [
+            {
+              "name": "private-key",
+              "short": "k",
+              "type": "string",
+              "required": true,
+              "description": "Hex-encoded private key (e.g., 0x123...)."
+            },
+            {
+              "name": "alias",
+              "short": "a",
+              "type": "string",
+              "required": false,
+              "description": "Optional alias for the account (default: derived address)."
+            }
+          ],
+          "example": "syncora account import --private-key 0xabc123... --alias my-wallet",
+          "notes": "Private key is encrypted and stored securely in ~/.syncora/accounts."
+        },
+        {
+          "name": "syncora account list",
+          "description": "Lists all imported accounts with their aliases and addresses.",
+          "usage": "syncora account list",
+          "flags": [],
+          "example": "syncora account list",
+          "notes": "Displays a table of account aliases and public addresses."
+        },
+        {
+          "name": "syncora account remove",
+          "description": "Removes an imported account by alias or address.",
+          "usage": "syncora account remove --account <alias-or-address>",
+          "flags": [
+            {
+              "name": "account",
+              "short": "a",
+              "type": "string",
+              "required": true,
+              "description": "Alias or address of the account to remove."
+            }
+          ],
+          "example": "syncora account remove --account my-wallet",
+          "notes": "Permanently deletes the account's private key from storage."
+        }
+      ],
+      "info": [
+        {
+          "name": "syncora info check",
+          "description": "Checks available bridge services and supported networks for a given token.",
+          "usage": "syncora info check <token> [--network <chain>]",
+          "flags": [
+            {
+              "name": "network",
+              "short": "n",
+              "type": "string",
+              "required": false,
+              "description": "Filter by source network (e.g., mainnet, arbitrum)."
+            }
+          ],
+          "args": [
+            {
+              "name": "token",
+              "type": "string",
+              "required": true,
+              "description": "Token symbol (e.g., ETH, USDC)."
+            }
+          ],
+          "example": "syncora info check ETH --network mainnet",
+          "notes": "Queries bridge-adapters service for data, returns a table of bridges, networks, fees, and estimated times."
+        },
+        {
+          "name": "syncora info bridge",
+          "description": "Initiates a token bridging operation using a specified bridge service.",
+          "usage": "syncora info bridge <token> --from <source-chain> --to <dest-chain> --bridge <bridge-name> --account <alias-or-address> --amount <value>",
+          "flags": [
+            {
+              "name": "from",
+              "short": "f",
+              "type": "string",
+              "required": true,
+              "description": "Source network (e.g., mainnet)."
+            },
+            {
+              "name": "to",
+              "short": "t",
+              "type": "string",
+              "required": true,
+              "description": "Destination network (e.g., arbitrum)."
+            },
+            {
+              "name": "bridge",
+              "short": "b",
+              "type": "string",
+              "required": true,
+              "description": "Bridge service name (e.g., hop, synapse)."
+            },
+            {
+              "name": "account",
+              "short": "a",
+              "type": "string",
+              "required": true,
+              "description": "Account alias or address for signing."
+            },
+            {
+              "name": "amount",
+              "short": "m",
+              "type": "float",
+              "required": true,
+              "description": "Amount of tokens to bridge (e.g., 1.5)."
+            }
+          ],
+          "args": [
+            {
+              "name": "token",
+              "type": "string",
+              "required": true,
+              "description": "Token symbol (e.g., ETH)."
+            }
+          ],
+          "example": "syncora info bridge ETH --from mainnet --to arbitrum --bridge hop --account my-wallet --amount 1.0",
+          "notes": "Signs transaction with the specified account's private key and submits via bridge-adapters."
+        },
+        {
+          "name": "syncora info status",
+          "description": "Checks the status of a bridging transaction.",
+          "usage": "syncora info status --tx-hash <hash>",
+          "flags": [
+            {
+              "name": "tx-hash",
+              "short": "x",
+              "type": "string",
+              "required": true,
+              "description": "Transaction hash of the bridging operation."
+            }
+          ],
+          "example": "syncora info status --tx-hash 0x123abc...",
+          "notes": "Queries monitor-service for transaction status."
+        }
+      ],
+      "help": [
+        {
+          "name": "syncora help",
+          "description": "Displays help information for the CLI or a specific command.",
+          "usage": "syncora help [command]",
+          "args": [
+            {
+              "name": "command",
+              "type": "string",
+              "required": false,
+              "description": "Optional command to get detailed help (e.g., info check)."
+            }
+          ],
+          "example": "syncora help info check",
+          "notes": "Generated from command definitions, includes usage, flags, and examples."
+        }
+      ]
+    }
+  }
